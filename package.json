@@ -1,0 +1,22 @@
+{
+  "name": "rpm-auto",
+  "version": "1.0.0",
+  "description": "Puppeteer based automation for RPM reports in Pasiona",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "author": "Alfredo Narvaez",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "moment": "^2.24.0",
+    "puppeteer": "^2.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "nodemon": "^2.0.2"
+  }
+}
