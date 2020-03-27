@@ -36,11 +36,11 @@ import minimist from "minimist";
   }
 
   const browser = await puppeteer.launch({
-    headless: false, // The browser is visible
+    headless: true, // The browser is visible
     ignoreHTTPSErrors: true,
     slowMo: 20, // slow down by 20ms (better for the screenshots)
     defaultViewport: null,
-    devtools: true,
+    devtools: false,
     args: [
       `--window-size=${options.width},${options.height}`,
       "--disable-features=site-per-process"
