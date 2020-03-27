@@ -9,7 +9,7 @@
   "author": "Alfredo Narvaez",
   "license": "ISC",
   "dependencies": {
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "moment": "^2.24.0",
     "puppeteer": "^2.1.1"
   },
