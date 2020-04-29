@@ -6,22 +6,15 @@ import minimist from "minimist";
 (async () => {
   const options = {
     width: 1920,
-    height: 1080
+    height: 1080,
   };
 
   const { project, start_date, end_date } = minimist(process.argv.slice(2));
 
   const startOfMonth =
-    start_date ||
-    moment()
-      .startOf("month")
-      .format("DD/MM/YYYY");
+    start_date || moment().startOf("month").format("DD/MM/YYYY");
 
-  const endOfMonth =
-    end_date ||
-    moment()
-      .endOf("month")
-      .format("DD/MM/YYYY");
+  const endOfMonth = end_date || moment().endOf("month").format("DD/MM/YYYY");
 
   if (!moment(start_date, "DD/MM/YYYY").isValid()) {
     console.error(start_date, "Is not a valid date");
@@ -36,15 +29,15 @@ import minimist from "minimist";
   }
 
   const browser = await puppeteer.launch({
-    headless: true, // The browser is visible
+    headless: false, // The browser is visible
     ignoreHTTPSErrors: true,
     slowMo: 20, // slow down by 20ms (better for the screenshots)
     defaultViewport: null,
     devtools: false,
     args: [
       `--window-size=${options.width},${options.height}`,
-      "--disable-features=site-per-process"
-    ] // new option
+      "--disable-features=site-per-process",
+    ], // new option
   });
   const page = await browser.newPage();
   await page.goto("https://dev.azure.com/agency-commerce");
@@ -127,15 +120,18 @@ import minimist from "minimist";
   for (let index = 0; index < getAllPrs.length; index++) {
     console.log(getAllPrs[index]);
 
-    const url = getAllPrs[index].replace("href=", "").replace('"', "");
+    const url = getAllPrs[index]
+      .replace("href=", "")
+      .replace('"', "")
+      .replace('"', "");
     console.log("TCL: url", url);
 
     const name = url.match(/[0-9]+/g);
     console.log("TCL: name", name);
 
     await page.goto(`${url}`);
-    await page.waitForSelector('[data-id="files"]');
-    await page.click('[data-id="files"]');
+    await page.waitForSelector('[data-content="Files"]');
+    await page.click('[data-content="Files"]');
 
     await page.waitFor(3000);
 
